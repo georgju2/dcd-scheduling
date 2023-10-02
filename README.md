@@ -164,7 +164,7 @@ sudo systemctl restart redis.service
 redis-server --protected-mode no --daemonize yes 
 ```
 
-For more information on [installing REDIS on Ubuntu please refer to this link] (https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-22-04)
+For more information on [installing REDIS on Ubuntu please refer to this link](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-22-04)
 
 ## Step 7: Start Apache Airflow
 
