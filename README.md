@@ -93,6 +93,12 @@ source airflow_venv/bin/activate
 pip install apache-airflow[postgres,crypto,celery,redis]
 ```
 
+5. Install Celery Flower
+
+```sh
+pip install celery-flower
+```
+
 ## Step 5: Configure Apache Airflow
 
 1. Initialize the Airflow database:
