@@ -4,7 +4,7 @@
 
 This README is a guide for setting up Apache Airflow with CeleryExecutor on an Ubuntu machine in an OpenStack environment, utilizing PostgreSQL as the database, and configuring Redis in the Airflow Config file. 
 
-Refer to the [official Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/) for more information and advanced configurations.
+Refer to the [official Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/) for more information and advanced configurations. 
 
 ## Prerequisites
 
@@ -50,15 +50,22 @@ GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow_user;
 \q
 ```
 
-```sh
 In order to execute the DAGs, we need to create a few tables that correspond to the DAGs
 
+```sh
 CREATE TABLE fact (id VARCHAR PRIMARY KEY, fact VARCHAR);
 
 CREATE TABLE accounts ( id serial PRIMARY KEY, created_on TIMESTAMP NOT NULL,  unit INT );
 
 PostgreSQL provides a “\dt” command to list all the available tables of a database
 ```
+
+To restart Postgresql
+```sh
+sudo systemctl restart postgresql
+```
+
+For more information on [setting up Postgresql on Ubuntu refer to this link] (https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart)
 
 ## Step 4: Install Apache Airflow
 
@@ -108,6 +115,23 @@ broker_url = redis://localhost:6379/0
 sql_alchemy_conn = postgresql+psycopg2://airflow_user:your_password@localhost/airflow_db
 ```
 
+Create Airflow users
+
+```sh
+airflow users create -u admin -f admin -l admin -r admin -e admin@byom.de
+
+airflow users create -u guest -f guest -l guest -r guest -e guest@byom.de
+```
+
+See list of airflow users
+
+```sh
+airflow users list
+```
+
+For more information on [installing and configuring Apache Airflow on Ubuntu please refer to this link](
+https://medium.com/international-school-of-ai-data-science/setting-up-apache-airflow-in-ubuntu-324cfcee1427)
+
 ## Step 6: Install & Configure Redis
 
 1. Install Redis:
@@ -134,7 +158,13 @@ supervised systemd
 sudo systemctl restart redis.service
 ```
 
-For more information on [installing REDIS on Ubuntu please refer here] (https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-22-04)
+5. Alternative: To start Redis in daemon mode without protection (only for non prod envs)
+
+```sh
+redis-server --protected-mode no --daemonize yes 
+```
+
+For more information on [installing REDIS on Ubuntu please refer to this link] (https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-22-04)
 
 ## Step 7: Start Apache Airflow
 
@@ -148,12 +178,11 @@ airflow webserver -p 8080
 airflow scheduler
 ```
 
+Celery worker can be started on multiple hosts to enable distributed execution.
+To monitor celery workers use Celery Flower.
+
 ```sh
-Celery worker can be started on multiple hosts to enable distributed execution
-
 airflow celery worker
-
-To monitor celery workers:
 
 airflow celery flower
 ```
