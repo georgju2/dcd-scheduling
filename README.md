@@ -65,7 +65,7 @@ To restart Postgresql
 sudo systemctl restart postgresql
 ```
 
-For more information on [setting up Postgresql on Ubuntu refer to this link] (https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart)
+For more information on [setting up Postgresql on Ubuntu refer to this link](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-22-04-quickstart)
 
 ## Step 4: Install Apache Airflow
 
