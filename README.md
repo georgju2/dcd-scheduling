@@ -2,7 +2,9 @@
 
 # Apache Airflow Setup Guide
 
-This README is a comprehensive guide for setting up Apache Airflow with CeleryExecutor on an Ubuntu machine in an OpenStack environment, utilizing PostgreSQL as the database, and configuring Redis in the Airflow Config file.
+This README is a guide for setting up Apache Airflow with CeleryExecutor on an Ubuntu machine in an OpenStack environment, utilizing PostgreSQL as the database, and configuring Redis in the Airflow Config file. 
+
+Refer to the [official Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/) for more information and advanced configurations.
 
 ## Prerequisites
 
@@ -10,7 +12,6 @@ Before beginning the installation, ensure you have the following:
 
 1. **Ubuntu Server**: A server with Ubuntu OS.
 2. **OpenStack Account**: An active OpenStack account with necessary permissions.
-3. **Internet Connection**: To download necessary packages and software.
 
 ## Step 1: Set Up Ubuntu Server in OpenStack
 
@@ -19,7 +20,11 @@ Before beginning the installation, ensure you have the following:
 
 ## Step 2: Update & Upgrade System Packages
 
-SSH into your Ubuntu server and run the following commands to update and upgrade the system packages:
+SSH into your Ubuntu server with the keyfile and run the following commands to update and upgrade the system packages:
+
+```sh
+ssh -o StrictHostKeyChecking=no -i ~/.ssh/dcdKey.pem ubuntu@160.85.252.164
+```
 
 ```sh
 sudo apt update && sudo apt upgrade -y
@@ -39,11 +44,20 @@ sudo apt-get install postgresql postgresql-contrib -y
 sudo -u postgres psql
 CREATE DATABASE airflow_db;
 CREATE USER airflow_user WITH PASSWORD 'your_password';
-ALTER ROLE airflow_user SET client_encoding TO 'utf8';
-ALTER ROLE airflow_user SET default_transaction_isolation TO 'read committed';
 ALTER ROLE airflow_user SET timezone TO 'UTC';
 GRANT ALL PRIVILEGES ON DATABASE airflow_db TO airflow_user;
+\CONNECT airflow_db
 \q
+```
+
+```sh
+In order to execute the DAGs, we need to create a few tables that correspond to the DAGs
+
+CREATE TABLE fact (id VARCHAR PRIMARY KEY, fact VARCHAR);
+
+CREATE TABLE accounts ( id serial PRIMARY KEY, created_on TIMESTAMP NOT NULL,  unit INT );
+
+PostgreSQL provides a “\dt” command to list all the available tables of a database
 ```
 
 ## Step 4: Install Apache Airflow
@@ -120,6 +134,8 @@ supervised systemd
 sudo systemctl restart redis.service
 ```
 
+For more information on [installing REDIS on Ubuntu please refer here] (https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-22-04)
+
 ## Step 7: Start Apache Airflow
 
 1. Start the Airflow web server and scheduler in separate terminals:
@@ -132,9 +148,18 @@ airflow webserver -p 8080
 airflow scheduler
 ```
 
+```sh
+Celery worker can be started on multiple hosts to enable distributed execution
+
+airflow celery worker
+
+To monitor celery workers:
+
+airflow celery flower
+```
+
 2. Access the Airflow UI by navigating to `http://<Your-OpenStack-VM-IP>:8080` in a web browser.
 
 ## Final Thoughts
 
-You should now have a running instance of Apache Airflow with CeleryExecutor, configured with PostgreSQL as the database and Redis as the Celery broker. It is important to secure your installation, e.g., by configuring HTTPS, setting up firewalls, etc. 
-Refer to the [official Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/) for more information and advanced configurations.
+You should now have a running instance of Apache Airflow with CeleryExecutor, configured with PostgreSQL as the database and Redis as the Celery broker. 
