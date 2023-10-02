@@ -108,7 +108,8 @@ airflow db init
 executor = CeleryExecutor
 
 [celery]
-result_backend = db+postgresql://airflow_user:your_password@localhost/airflow_db
+result_backend = db+postgresql+psycopg2://airflow_user:your_password@localhost/airflow_db
+
 broker_url = redis://localhost:6379/0
 
 [database]
