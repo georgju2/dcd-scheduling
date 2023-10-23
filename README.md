@@ -194,6 +194,8 @@ airflow celery flower
 ```
 
 2. Access the Airflow UI by navigating to `http://<Your-OpenStack-VM-IP>:8080` in a web browser.
+   
+3. Access the Celery UI by navigating to `http://<Your-OpenStack-VM-IP>:5555` in a web browser.
 
 ## Final Thoughts
 
