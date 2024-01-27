@@ -1,5 +1,9 @@
 # dcd-scheduling
 
+# Introduction
+
+This repository contains the code samples and demonstrations that are refernced in the research presented in the Master’s Thesis titled "Data-Centric Distributed Scheduling of ETL Jobs." 
+
 # Apache Airflow Setup Guide
 
 This README is a guide for setting up Apache Airflow with CeleryExecutor on an Ubuntu machine in an OpenStack environment, utilizing PostgreSQL as the database, and configuring Redis in the Airflow Config file. 
