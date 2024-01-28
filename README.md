@@ -1,4 +1,3 @@
-# dcd-scheduling
 
 # Introduction
 
@@ -6,7 +5,7 @@ This repository contains the code samples and demonstrations that are referenced
 
 # Apache Airflow Setup Guide
 
-This README is a guide for setting up Apache Airflow with CeleryExecutor on an Ubuntu machine in an OpenStack environment, utilizing PostgreSQL as the database, and configuring Redis in the Airflow Config file. 
+This is a guide for setting up Apache Airflow with CeleryExecutor on an Ubuntu machine in an OpenStack environment, utilizing PostgreSQL as the database, and configuring Redis in the Airflow Config file. 
 
 Refer to the [official Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/) for more information and advanced configurations. 
 
