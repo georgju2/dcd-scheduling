@@ -2,7 +2,7 @@
 
 # Introduction
 
-This repository contains the code samples and demonstrations that are refernced in the research presented in the Master’s Thesis titled "Data-Centric Distributed Scheduling of ETL Jobs." 
+This repository contains the code samples and demonstrations that are referenced in the research presented in the Master’s Thesis titled "Data-Centric Distributed Scheduling of ETL Jobs." 
 
 # Apache Airflow Setup Guide
 
