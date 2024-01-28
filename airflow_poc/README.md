@@ -4,7 +4,7 @@ This directory contains the demo code that is referenced in chapter 5 of the Mas
 
 The Requirements are numbered in the order found in Table 1 ( Overview of the functional requirements, their verification and current status ) of the Thesis.
 
-The Requirements for which demos have been used are as follows:
+The requirements for which code based demos are available are as follows:
 
 - Req. 1: Parallelization of Tasks
 - Req. 2: Robust API to query internal state of tasks 
