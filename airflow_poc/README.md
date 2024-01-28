@@ -1,4 +1,4 @@
-## Requirements
+## Requirements outlined by Industry Partner
 
 This directory contains the demo code that is referenced in chapter 5 of the Master thesis.
 
